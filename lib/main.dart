@@ -636,11 +636,11 @@ List<ClassRoutine> classRoutines = [
             ),
             BottomNavigationBarItem(
               icon: Icon(Icons.location_on_outlined),
-              label: '',
+              label: 'Location',
             ),
             BottomNavigationBarItem(
               icon: Icon(Icons.person_outline_rounded),
-              label: '',
+              label: 'Profile',
             ),
           ],
         ),
@@ -655,7 +655,7 @@ List<ClassRoutine> classRoutines = [
       case 'Attendance':
         screen = AttendanceDetailScreen(attendanceRecords: attendanceRecords);
         break;
-      case 'Class Routine':
+      case 'Routine':
         screen = ClassesScreen(classRoutines: classRoutines);
         break;
       case 'Notice':
@@ -843,13 +843,13 @@ class _HomeScreenState extends State<HomeScreen> {
                 children: [
                   _buildFeatureItem(
                     'Attendance',
-                    Icons.book_outlined,
+                    Icons.book,
                     () => widget.onFeatureTap('Attendance'),
                   ),
                   _buildFeatureItem(
-                    'Class Routine',
+                    'Routine',
                     Icons.class_outlined,
-                    () => widget.onFeatureTap('Class Routine'),
+                    () => widget.onFeatureTap('Routine'),
                   ),
                   _buildFeatureItem(
                     'Notice',
@@ -918,6 +918,8 @@ class _HomeScreenState extends State<HomeScreen> {
                           'Check In: ${todayAttendance.checkInTime.isEmpty ? 'N/A' : todayAttendance.checkInTime}',
                           style: const TextStyle(
                             fontSize: 14,
+                            fontWeight: FontWeight.w500,
+
                             color: Color(0xFF9E9E9E),
                           ),
                         ),
@@ -926,6 +928,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           'Check Out: ${todayAttendance.checkOutTime.isEmpty ? 'N/A' : todayAttendance.checkOutTime}',
                           style: const TextStyle(
                             fontSize: 14,
+                            fontWeight: FontWeight.w500,
                             color: Color(0xFF9E9E9E),
                           ),
                         ),
