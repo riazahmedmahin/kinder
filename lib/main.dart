@@ -402,7 +402,7 @@ List<ClassRoutine> classRoutines = [
   ClassRoutine(day: 'Thursday', subject: 'ICT', teacher: 'Ms. Grey', room: 'F101', time: '12:00 PM', color: Colors.orange),
   // Friday is intentionally skipped.
 ];
-
+// Fees model
   List<Fee> feeRecords = [
     Fee(
       month: 'December 2024',
@@ -628,11 +628,11 @@ List<ClassRoutine> classRoutines = [
                   color: _currentIndex == 0 ? Colors.white : Color(0xFF9E9E9E),
                 ),
               ),
-              label: '',
+              label: 'Home',
             ),
             BottomNavigationBarItem(
               icon: Icon(Icons.chat_bubble_outline_rounded),
-              label: '',
+              label: 'Message',
             ),
             BottomNavigationBarItem(
               icon: Icon(Icons.location_on_outlined),
@@ -734,7 +734,7 @@ class _HomeScreenState extends State<HomeScreen> {
       backgroundColor: const Color(0xFFF8F9FA),
       body: SafeArea(
         child: SingleChildScrollView(
-          padding: const EdgeInsets.all(20),
+          padding: const EdgeInsets.symmetric(horizontal: 14,vertical: 12),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -742,27 +742,51 @@ class _HomeScreenState extends State<HomeScreen> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        _getGreeting(),
-                        style: const TextStyle(
-                          fontSize: 16,
-                          color: Color(0xFF9E9E9E),
-                          fontWeight: FontWeight.w500,
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        
+                        Text(
+                          _getGreeting(),
+                          style: const TextStyle(
+                            fontSize: 16,
+                            color: Color(0xFF9E9E9E),
+                            fontWeight: FontWeight.w500,
+                          ),
                         ),
-                      ),
-                      const SizedBox(height: 4),
-                      Text(
-                        '${widget.child.name}!',
-                        style: const TextStyle(
-                          fontSize: 24,
-                          fontWeight: FontWeight.bold,
-                          color: Color(0xFF2C3E50),
+                        const SizedBox(height: 4),
+                        Row(
+                          children: [
+                                CircleAvatar(
+                          radius: 20,
+                          backgroundColor: const Color(0xFF4A90E2),
+                          child: Text(
+                            widget.child.name
+                                .split(' ')
+                                .map((e) => e.isNotEmpty ? e[0] : '')
+                                .join(),
+                            style: const TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 16,
+                            ),
+                          ),
                         ),
-                      ),
-                    ],
+                        SizedBox(width: 10,),
+                            Text(
+                              '${widget.child.name}!',
+                              style: const TextStyle(
+                                fontSize: 24,
+                                fontWeight: FontWeight.bold,
+                                color: Color(0xFF2C3E50),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
                   ),
                   Row(
                     children: [
@@ -784,7 +808,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             const Icon(
                               Icons.notifications_outlined,
                               color: Color(0xFF9E9E9E),
-                              size: 24,
+                              size: 25,
                             ),
                             Positioned(
                               right: 0,
@@ -802,34 +826,19 @@ class _HomeScreenState extends State<HomeScreen> {
                         ),
                       ),
                       const SizedBox(width: 12),
-                      CircleAvatar(
-                        radius: 20,
-                        backgroundColor: const Color(0xFF4A90E2),
-                        child: Text(
-                          widget.child.name
-                              .split(' ')
-                              .map((e) => e.isNotEmpty ? e[0] : '')
-                              .join(),
-                          style: const TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 16,
-                          ),
-                        ),
-                      ),
+              
                     ],
                   ),
                 ],
               ),
-              const SizedBox(height: 24),
-
+             const SizedBox(height: 24),
               /// Feature Grid
               GridView.count(
                 shrinkWrap: true,
                 physics: const NeverScrollableScrollPhysics(),
                 crossAxisCount: 4,
                 crossAxisSpacing: 16,
-                mainAxisSpacing: 24,
+                mainAxisSpacing:5,
                 childAspectRatio: 0.85,
                 children: [
                   _buildFeatureItem(
@@ -874,7 +883,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                 ],
               ),
-              const SizedBox(height: 24),
+              //const SizedBox(height: 24),
 
               /// Today’s Attendance
               const Text(
@@ -979,6 +988,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 ), // some padding inside the container
                 child: _buildAttendanceCalendar(),
               ),
+              SizedBox(height: 25,)
             ],
           ),
         ),
@@ -1129,11 +1139,11 @@ Widget _buildDayCell(
 
   return Container(
     alignment: Alignment.center,
-    margin: const EdgeInsets.all(4),
-    padding: const EdgeInsets.all(6),
+    margin: const EdgeInsets.symmetric(horizontal: 9,vertical: 9),
+    padding: const EdgeInsets.all(5),
     decoration: BoxDecoration(
       color: bgColor,
-      borderRadius: BorderRadius.circular(8), // <- rectangle with rounded corner
+      borderRadius: BorderRadius.circular(6), // <- rectangle with rounded corner
       border: Border.all(color: borderColor, width: 1.5),
     ),
     child: Text(
@@ -1706,15 +1716,7 @@ class BehaviorScreen extends StatelessWidget {
           icon: Icon(Icons.arrow_back_ios),
           onPressed: () => Navigator.pop(context),
         ),
-        actions: [
-          TextButton(
-            onPressed: () {},
-            child: Text(
-              'Detailed view',
-              style: TextStyle(color: Color(0xFF9E9E9E), fontSize: 14),
-            ),
-          ),
-        ],
+ 
       ),
       body: SingleChildScrollView(
         padding: EdgeInsets.all(20),
