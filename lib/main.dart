@@ -655,7 +655,7 @@ List<ClassRoutine> classRoutines = [
       case 'Attendance':
         screen = AttendanceDetailScreen(attendanceRecords: attendanceRecords);
         break;
-      case 'Classes':
+      case 'Class Routine':
         screen = ClassesScreen(classRoutines: classRoutines);
         break;
       case 'Notice':
@@ -847,9 +847,9 @@ class _HomeScreenState extends State<HomeScreen> {
                     () => widget.onFeatureTap('Attendance'),
                   ),
                   _buildFeatureItem(
-                    'Classes',
+                    'Class Routine',
                     Icons.class_outlined,
-                    () => widget.onFeatureTap('Classes'),
+                    () => widget.onFeatureTap('Class Routine'),
                   ),
                   _buildFeatureItem(
                     'Notice',
@@ -1604,14 +1604,26 @@ class ClassesScreen extends StatelessWidget {
       return Center(
         child: Padding(
           padding: const EdgeInsets.all(24),
-          child: Text(
-            'No classes today!',
-            style: TextStyle(
-              fontSize: 18,
-              fontWeight: FontWeight.w600,
-              color: Colors.grey.shade600,
+          child: Center(
+            child: Column(
+              children: [
+                SizedBox(height: 200,),
+                Center(
+                  child: Text(
+                    'No classes today!',
+                    style: TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.w600,
+                      color: const Color.fromARGB(255, 42, 41, 41),
+                    ),
+                    
+                  ),
+                ),
+                Image.network("https://cdn-icons-png.flaticon.com/128/11887/11887123.png")
+              ],
             ),
           ),
+          
         ),
       );
     }
