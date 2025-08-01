@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'dart:async';
 import 'dart:math';
-
 import 'package:table_calendar/table_calendar.dart';
 
 void main() {
@@ -52,13 +51,10 @@ class _SplashScreenState extends State<SplashScreen>
       begin: 0.0,
       end: 1.0,
     ).animate(_animationController);
-
     _animationController.forward();
-
     Timer(Duration(seconds: 2), () {
-      Navigator.of(
-        context,
-      ).pushReplacement(MaterialPageRoute(builder: (context) => MainScreen()));
+      Navigator.of(context).pushReplacement(
+          MaterialPageRoute(builder: (context) => MainScreen()));
     });
   }
 
@@ -231,7 +227,6 @@ class ClassRoutine {
   });
 }
 
-
 class Fee {
   final String month;
   final double amount;
@@ -248,17 +243,43 @@ class Fee {
   });
 }
 
-class BehaviorRecord {
+class DetentionRecord {
   final DateTime date;
   final String status;
   final String description;
   final Color color;
+  final String? detentionReason;
 
-  BehaviorRecord({
+  DetentionRecord({
     required this.date,
     required this.status,
     required this.description,
     required this.color,
+    this.detentionReason,
+  });
+}
+
+class SportsActivity {
+  final String name;
+  final String type;
+  final DateTime date;
+  final String venue;
+  final String description;
+  final bool isParticipating;
+  final String? position;
+  final Color color;
+  final IconData icon;
+
+  SportsActivity({
+    required this.name,
+    required this.type,
+    required this.date,
+    required this.venue,
+    required this.description,
+    required this.isParticipating,
+    this.position,
+    required this.color,
+    required this.icon,
   });
 }
 
@@ -281,7 +302,6 @@ class _MainScreenState extends State<MainScreen> {
   );
 
   List<AttendanceRecord> attendanceRecords = [];
-
   List<Subject> subjects = [
     Subject(
       name: 'Physics',
@@ -321,7 +341,6 @@ class _MainScreenState extends State<MainScreen> {
   ];
 
   List<ExamResult> examResults = [];
-
   List<Notice> notices = [
     Notice(
       title: 'Holiday and Vacation Notices',
@@ -365,44 +384,42 @@ class _MainScreenState extends State<MainScreen> {
       type: 'Academic',
     ),
   ];
-List<ClassRoutine> classRoutines = [
-  // Saturday
-  ClassRoutine(day: 'Saturday', subject: 'Physics', teacher: 'Dr. Smith', room: 'A101', time: '9:00 AM', color: Colors.blue),
-  ClassRoutine(day: 'Saturday', subject: 'English', teacher: 'Ms. Davis', room: 'B101', time: '9:00 AM', color: Colors.yellow),
-  ClassRoutine(day: 'Saturday', subject: 'Chemistry', teacher: 'Mrs. Johnson', room: 'D101', time: '11:00 AM', color: Colors.teal),
-  ClassRoutine(day: 'Saturday', subject: 'ICT', teacher: 'Ms. Grey', room: 'F101', time: '12:00 PM', color: Colors.orange),
 
-  // Sunday
-  ClassRoutine(day: 'Sunday', subject: 'English', teacher: 'Ms. Davis', room: 'B101', time: '9:00 AM', color: Colors.yellow),
-  ClassRoutine(day: 'Sunday', subject: 'Physics', teacher: 'Dr. Smith', room: 'A101', time: '9:00 AM', color: Colors.blue),
-  ClassRoutine(day: 'Sunday', subject: 'ICT', teacher: 'Ms. Grey', room: 'F101', time: '12:00 PM', color: Colors.orange),
-  ClassRoutine(day: 'Sunday', subject: 'History', teacher: 'Mr. Black', room: 'E101', time: '8:30 AM', color: Colors.purple),
+  List<ClassRoutine> classRoutines = [
+    // Saturday
+    ClassRoutine(day: 'Saturday', subject: 'Physics', teacher: 'Dr. Smith', room: 'A101', time: '9:00 AM', color: Colors.blue),
+    ClassRoutine(day: 'Saturday', subject: 'English', teacher: 'Ms. Davis', room: 'B101', time: '9:00 AM', color: Colors.yellow),
+    ClassRoutine(day: 'Saturday', subject: 'Chemistry', teacher: 'Mrs. Johnson', room: 'D101', time: '11:00 AM', color: Colors.teal),
+    ClassRoutine(day: 'Saturday', subject: 'ICT', teacher: 'Ms. Grey', room: 'F101', time: '12:00 PM', color: Colors.orange),
+    // Sunday
+    ClassRoutine(day: 'Sunday', subject: 'English', teacher: 'Ms. Davis', room: 'B101', time: '9:00 AM', color: Colors.yellow),
+    ClassRoutine(day: 'Sunday', subject: 'Physics', teacher: 'Dr. Smith', room: 'A101', time: '9:00 AM', color: Colors.blue),
+    ClassRoutine(day: 'Sunday', subject: 'ICT', teacher: 'Ms. Grey', room: 'F101', time: '12:00 PM', color: Colors.orange),
+    ClassRoutine(day: 'Sunday', subject: 'History', teacher: 'Mr. Black', room: 'E101', time: '8:30 AM', color: Colors.purple),
+    // Monday
+    ClassRoutine(day: 'Monday', subject: 'Biology', teacher: 'Dr. Wilson', room: 'C101', time: '9:00 AM', color: Colors.green),
+    ClassRoutine(day: 'Monday', subject: 'English', teacher: 'Ms. Davis', room: 'B101', time: '9:00 AM', color: Colors.yellow),
+    ClassRoutine(day: 'Monday', subject: 'Chemistry', teacher: 'Mrs. Johnson', room: 'D101', time: '11:00 AM', color: Colors.teal),
+    ClassRoutine(day: 'Monday', subject: 'ICT', teacher: 'Ms. Grey', room: 'F101', time: '12:00 PM', color: Colors.orange),
+    // Tuesday
+    ClassRoutine(day: 'Tuesday', subject: 'Chemistry', teacher: 'Mrs. Johnson', room: 'D101', time: '11:00 AM', color: Colors.teal),
+    ClassRoutine(day: 'Tuesday', subject: 'English', teacher: 'Ms. Davis', room: 'B101', time: '9:00 AM', color: Colors.yellow),
+    ClassRoutine(day: 'Tuesday', subject: 'Physics', teacher: 'Dr. Smith', room: 'A101', time: '9:00 AM', color: Colors.blue),
+    ClassRoutine(day: 'Tuesday', subject: 'ICT', teacher: 'Ms. Grey', room: 'F101', time: '12:00 PM', color: Colors.orange),
+    // Wednesday
+    ClassRoutine(day: 'Wednesday', subject: 'History', teacher: 'Mr. Black', room: 'E101', time: '8:30 AM', color: Colors.purple),
+    ClassRoutine(day: 'Wednesday', subject: 'Physics', teacher: 'Dr. Smith', room: 'A101', time: '9:00 AM', color: Colors.blue),
+    ClassRoutine(day: 'Wednesday', subject: 'ICT', teacher: 'Ms. Grey', room: 'F101', time: '12:00 PM', color: Colors.orange),
+    ClassRoutine(day: 'Wednesday', subject: 'History', teacher: 'Mr. Black', room: 'E101', time: '8:30 AM', color: Colors.purple),
+    // Thursday
+    ClassRoutine(day: 'Thursday', subject: 'ICT', teacher: 'Ms. Grey', room: 'F101', time: '12:00 PM', color: Colors.orange),
+    ClassRoutine(day: 'Thursday', subject: 'English', teacher: 'Ms. Davis', room: 'B101', time: '9:00 AM', color: Colors.yellow),
+    ClassRoutine(day: 'Thursday', subject: 'Physics', teacher: 'Dr. Smith', room: 'A101', time: '9:00 AM', color: Colors.blue),
+    ClassRoutine(day: 'Thursday', subject: 'ICT', teacher: 'Ms. Grey', room: 'F101', time: '12:00 PM', color: Colors.orange),
+    // Friday is intentionally skipped.
+  ];
 
-  // Monday
-  ClassRoutine(day: 'Monday', subject: 'Biology', teacher: 'Dr. Wilson', room: 'C101', time: '9:00 AM', color: Colors.green),
-  ClassRoutine(day: 'Monday', subject: 'English', teacher: 'Ms. Davis', room: 'B101', time: '9:00 AM', color: Colors.yellow),
-  ClassRoutine(day: 'Monday', subject: 'Chemistry', teacher: 'Mrs. Johnson', room: 'D101', time: '11:00 AM', color: Colors.teal),
-  ClassRoutine(day: 'Monday', subject: 'ICT', teacher: 'Ms. Grey', room: 'F101', time: '12:00 PM', color: Colors.orange),
-
-  // Tuesday
-  ClassRoutine(day: 'Tuesday', subject: 'Chemistry', teacher: 'Mrs. Johnson', room: 'D101', time: '11:00 AM', color: Colors.teal),
-  ClassRoutine(day: 'Tuesday', subject: 'English', teacher: 'Ms. Davis', room: 'B101', time: '9:00 AM', color: Colors.yellow),
-  ClassRoutine(day: 'Tuesday', subject: 'Physics', teacher: 'Dr. Smith', room: 'A101', time: '9:00 AM', color: Colors.blue),
-  ClassRoutine(day: 'Tuesday', subject: 'ICT', teacher: 'Ms. Grey', room: 'F101', time: '12:00 PM', color: Colors.orange),
-  // Wednesday
-  ClassRoutine(day: 'Wednesday', subject: 'History', teacher: 'Mr. Black', room: 'E101', time: '8:30 AM', color: Colors.purple),
-  ClassRoutine(day: 'Wednesday', subject: 'Physics', teacher: 'Dr. Smith', room: 'A101', time: '9:00 AM', color: Colors.blue),
-  ClassRoutine(day: 'Wednesday', subject: 'ICT', teacher: 'Ms. Grey', room: 'F101', time: '12:00 PM', color: Colors.orange),
-  ClassRoutine(day: 'Wednesday', subject: 'History', teacher: 'Mr. Black', room: 'E101', time: '8:30 AM', color: Colors.purple),
-
-  // Thursday
-  ClassRoutine(day: 'Thursday', subject: 'ICT', teacher: 'Ms. Grey', room: 'F101', time: '12:00 PM', color: Colors.orange),
- ClassRoutine(day: 'Thursday', subject: 'English', teacher: 'Ms. Davis', room: 'B101', time: '9:00 AM', color: Colors.yellow),
-  ClassRoutine(day: 'Thursday', subject: 'Physics', teacher: 'Dr. Smith', room: 'A101', time: '9:00 AM', color: Colors.blue),
-  ClassRoutine(day: 'Thursday', subject: 'ICT', teacher: 'Ms. Grey', room: 'F101', time: '12:00 PM', color: Colors.orange),
-  // Friday is intentionally skipped.
-];
-// Fees model
+  // Fees model
   List<Fee> feeRecords = [
     Fee(
       month: 'December 2024',
@@ -434,7 +451,8 @@ List<ClassRoutine> classRoutines = [
     ),
   ];
 
-  List<BehaviorRecord> behaviorRecords = [];
+  List<DetentionRecord> DetentionRecords = [];
+  List<SportsActivity> sportsActivities = [];
 
   @override
   void initState() {
@@ -445,16 +463,32 @@ List<ClassRoutine> classRoutines = [
   void _initializeData() {
     _generateAttendanceData();
     _generateExamResults();
-    _generateBehaviorData();
+    _generateDetentionData();
+    _generateSportsData();
   }
 
   void _generateAttendanceData() {
     final now = DateTime.now();
     for (int day = 1; day <= now.day; day++) {
       final date = DateTime(now.year, now.month, day);
-
-      if (date.weekday == DateTime.saturday ||
-          date.weekday == DateTime.friday) {
+      
+      // Friday is always a holiday
+      if (date.weekday == DateTime.friday) {
+        attendanceRecords.add(
+          AttendanceRecord(
+            date: date,
+            isPresent: false,
+            checkInTime: '',
+            checkOutTime: '',
+            isHoliday: true,
+            holidayReason: 'Friday Holiday',
+          ),
+        );
+        continue;
+      }
+      
+      // Saturday is weekend
+      if (date.weekday == DateTime.saturday) {
         attendanceRecords.add(
           AttendanceRecord(
             date: date,
@@ -513,7 +547,6 @@ List<ClassRoutine> classRoutines = [
 
         final totalMarks = 100.0;
         String grade;
-
         if (marks >= 90)
           grade = 'A+';
         else if (marks >= 80)
@@ -545,14 +578,24 @@ List<ClassRoutine> classRoutines = [
     }
   }
 
-  void _generateBehaviorData() {
+  void _generateDetentionData() {
     final now = DateTime.now();
-    final statuses = ['Excellent', 'Good', 'Average', 'Needs Improvement'];
+    final statuses = ['Excellent', 'Good', 'Average', 'Detention'];
     final colors = [
       Color(0xFF4CAF50),
       Color(0xFF2196F3),
       Color(0xFFFF9800),
       Color(0xFFFF5722),
+    ];
+    final detentionReasons = [
+      'No homework completed',
+      'Disturbing class discipline',
+      'Late submission of assignment',
+      'Not paying attention in class',
+      'Incomplete project work',
+      'Talking during lecture',
+      'Not bringing required books',
+      'Poor handwriting in notebook',
     ];
 
     for (int day = 1; day <= now.day; day++) {
@@ -560,16 +603,82 @@ List<ClassRoutine> classRoutines = [
       if (date.weekday != DateTime.saturday &&
           date.weekday != DateTime.friday) {
         final statusIndex = Random().nextInt(statuses.length);
-        behaviorRecords.add(
-          BehaviorRecord(
+        final status = statuses[statusIndex];
+        
+        DetentionRecords.add(
+          DetentionRecord(
             date: date,
-            status: statuses[statusIndex],
-            description: 'Daily behavior assessment',
+            status: status,
+            description: status == 'Detention'
+                ? 'Student needs improvement in behavior & Detention'
+                : 'Daily Detention & behavior assessment',
             color: colors[statusIndex],
+            detentionReason: status == 'Detention'
+                ? detentionReasons[Random().nextInt(detentionReasons.length)]
+                : null,
           ),
         );
       }
     }
+  }
+
+  void _generateSportsData() {
+    sportsActivities = [
+      SportsActivity(
+        name: 'Annual Sports Day',
+        type: 'Competition',
+        date: DateTime.now().add(Duration(days: 15)),
+        venue: 'School Ground',
+        description: 'Annual inter-house sports competition with various events',
+        isParticipating: true,
+        position: 'Team Captain - Red House',
+        color: Color(0xFFFF5722),
+        icon: Icons.emoji_events,
+      ),
+      SportsActivity(
+        name: 'Football Tournament',
+        type: 'Tournament',
+        date: DateTime.now().add(Duration(days: 30)),
+        venue: 'City Stadium',
+        description: 'Inter-school football championship',
+        isParticipating: true,
+        position: 'Forward Player',
+        color: Color(0xFF4CAF50),
+        icon: Icons.sports_soccer,
+      ),
+      SportsActivity(
+        name: 'Basketball League',
+        type: 'League',
+        date: DateTime.now().subtract(Duration(days: 10)),
+        venue: 'School Court',
+        description: 'Monthly basketball league matches',
+        isParticipating: true,
+        position: '2nd Place Winner',
+        color: Color(0xFFFF9800),
+        icon: Icons.sports_basketball,
+      ),
+      SportsActivity(
+        name: 'Swimming Competition',
+        type: 'Competition',
+        date: DateTime.now().add(Duration(days: 45)),
+        venue: 'Aquatic Center',
+        description: 'District level swimming championship',
+        isParticipating: false,
+        color: Color(0xFF2196F3),
+        icon: Icons.pool,
+      ),
+      SportsActivity(
+        name: 'Cricket Match',
+        type: 'Match',
+        date: DateTime.now().subtract(Duration(days: 5)),
+        venue: 'School Ground',
+        description: 'Friendly match against neighboring school',
+        isParticipating: true,
+        position: 'Wicket Keeper',
+        color: Color(0xFF9C27B0),
+        icon: Icons.sports_cricket,
+      ),
+    ];
   }
 
   @override
@@ -584,73 +693,119 @@ List<ClassRoutine> classRoutines = [
             onFeatureTap: _navigateToFeature,
           ),
           MessagesScreen(),
-          LocationScreen(),
+          SportsScreen(sportsActivities: sportsActivities),
           ProfileScreen(child: currentChild),
         ],
       ),
-      bottomNavigationBar: Container(
-        decoration: BoxDecoration(
-          color: Colors.white,
-          boxShadow: [
-            BoxShadow(
-              color: Colors.black.withOpacity(0.1),
-              blurRadius: 10,
-              offset: Offset(0, -5),
-            ),
-          ],
-        ),
-        child: BottomNavigationBar(
-          type: BottomNavigationBarType.fixed,
-          currentIndex: _currentIndex,
-          onTap: (index) => setState(() => _currentIndex = index),
-          selectedItemColor: Color(0xFF4A90E2),
-          unselectedItemColor: Color(0xFF9E9E9E),
-          backgroundColor: Colors.white,
-          elevation: 0,
-          selectedLabelStyle: TextStyle(
-            fontWeight: FontWeight.w600,
-            fontSize: 12,
-          ),
-          unselectedLabelStyle: TextStyle(fontSize: 12),
-          items: [
-            BottomNavigationBarItem(
-              icon: Container(
-                padding: EdgeInsets.all(8),
-                decoration: BoxDecoration(
-                  color:
-                      _currentIndex == 0
-                          ? Color(0xFF4A90E2)
-                          : Colors.transparent,
-                  borderRadius: BorderRadius.circular(12),
-                ),
-                child: Icon(
-                  Icons.home_rounded,
-                  color: _currentIndex == 0 ? Colors.white : Color(0xFF9E9E9E),
-                ),
-              ),
-              label: 'Home',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.chat_bubble_outline_rounded),
-              label: 'Message',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.location_on_outlined),
-              label: 'Location',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.person_outline_rounded),
-              label: 'Profile',
-            ),
-          ],
-        ),
+bottomNavigationBar: Container(
+  decoration: BoxDecoration(
+    color: Colors.white,
+    boxShadow: [
+      BoxShadow(
+        color: Colors.black.withOpacity(0.1),
+        blurRadius: 10,
+        offset: Offset(0, -5),
       ),
+    ],
+  ),
+  child: Theme(
+    data: Theme.of(context).copyWith(
+      splashFactory: NoSplash.splashFactory,
+      highlightColor: Colors.transparent,
+    ),
+    child: BottomNavigationBar(
+      type: BottomNavigationBarType.fixed,
+      currentIndex: _currentIndex,
+      onTap: (index) => setState(() => _currentIndex = index),
+      selectedItemColor: Color(0xFF4A90E2),
+      unselectedItemColor: Color(0xFF9E9E9E),
+      backgroundColor: Colors.white,
+      elevation: 0,
+      selectedLabelStyle: TextStyle(
+        fontWeight: FontWeight.w600,
+        fontSize: 12,
+      ),
+      unselectedLabelStyle: TextStyle(fontSize: 12),
+      items: [
+        BottomNavigationBarItem(
+          icon: Container(
+            padding: EdgeInsets.all(8),
+            decoration: BoxDecoration(
+              color: _currentIndex == 0
+                  ? Color(0xFF4A90E2)
+                  : Colors.transparent,
+              borderRadius: BorderRadius.circular(12),
+            ),
+            child: Icon(
+              Icons.home_rounded,
+              color:
+                  _currentIndex == 0 ? Colors.white : Color(0xFF9E9E9E),
+            ),
+          ),
+          label: 'Home',
+        ),
+        BottomNavigationBarItem(
+          icon: Container(
+            padding: EdgeInsets.all(8),
+            decoration: BoxDecoration(
+              color: _currentIndex == 1
+                  ? Color(0xFF4A90E2)
+                  : Colors.transparent,
+              borderRadius: BorderRadius.circular(12),
+            ),
+            child: Icon(
+              Icons.chat_bubble_outline_rounded,
+              color:
+                  _currentIndex == 1 ? Colors.white : Color(0xFF9E9E9E),
+            ),
+          ),
+          label: 'Message',
+        ),
+        BottomNavigationBarItem(
+          icon: Container(
+            padding: EdgeInsets.all(8),
+            decoration: BoxDecoration(
+              color: _currentIndex == 2
+                  ? Color(0xFF4A90E2)
+                  : Colors.transparent,
+              borderRadius: BorderRadius.circular(12),
+            ),
+            child: Icon(
+              Icons.support_sharp,
+              color:
+                  _currentIndex == 2 ? Colors.white : Color(0xFF9E9E9E),
+            ),
+          ),
+          label: 'Sports',
+        ),
+        BottomNavigationBarItem(
+          icon: Container(
+            padding: EdgeInsets.all(8),
+            decoration: BoxDecoration(
+              color: _currentIndex == 3
+                  ? Color(0xFF4A90E2)
+                  : Colors.transparent,
+              borderRadius: BorderRadius.circular(12),
+            ),
+            child: Icon(
+              Icons.person_outline,
+              color:
+                  _currentIndex == 3 ? Colors.white : Color(0xFF9E9E9E),
+            ),
+          ),
+          label: 'Profile',
+        ),
+      ],
+    ),
+  ),
+),
+
+
     );
   }
 
   void _navigateToFeature(String feature) {
     Widget screen;
-
     switch (feature) {
       case 'Attendance':
         screen = AttendanceDetailScreen(attendanceRecords: attendanceRecords);
@@ -664,8 +819,8 @@ List<ClassRoutine> classRoutines = [
       case 'Result':
         screen = ResultScreen(examResults: examResults, subjects: subjects);
         break;
-      case 'Behavior':
-        screen = BehaviorScreen(behaviorRecords: behaviorRecords);
+      case 'Detention':
+        screen = DetentionScreen(DetentionRecords: DetentionRecords);
         break;
       case 'Fees':
         screen = FeesScreen(feeRecords: feeRecords);
@@ -679,13 +834,11 @@ List<ClassRoutine> classRoutines = [
       default:
         return;
     }
-
     Navigator.push(context, MaterialPageRoute(builder: (context) => screen));
   }
 }
 
 // Home Screen
-
 class HomeScreen extends StatefulWidget {
   final Child child;
   final List<AttendanceRecord> attendanceRecords;
@@ -720,21 +873,20 @@ class _HomeScreenState extends State<HomeScreen> {
           e.date.year == DateTime.now().year &&
           e.date.month == DateTime.now().month &&
           e.date.day == DateTime.now().day,
-      orElse:
-          () => AttendanceRecord(
-            date: DateTime.now(),
-            isPresent: false,
-            checkInTime: '',
-            checkOutTime: '',
-            isHoliday: false,
-          ),
+      orElse: () => AttendanceRecord(
+        date: DateTime.now(),
+        isPresent: false,
+        checkInTime: '',
+        checkOutTime: '',
+        isHoliday: false,
+      ),
     );
 
     return Scaffold(
       backgroundColor: const Color(0xFFF8F9FA),
       body: SafeArea(
         child: SingleChildScrollView(
-          padding: const EdgeInsets.symmetric(horizontal: 14,vertical: 12),
+          padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -747,7 +899,6 @@ class _HomeScreenState extends State<HomeScreen> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        
                         Text(
                           _getGreeting(),
                           style: const TextStyle(
@@ -759,22 +910,22 @@ class _HomeScreenState extends State<HomeScreen> {
                         const SizedBox(height: 4),
                         Row(
                           children: [
-                                CircleAvatar(
-                          radius: 20,
-                          backgroundColor: const Color(0xFF4A90E2),
-                          child: Text(
-                            widget.child.name
-                                .split(' ')
-                                .map((e) => e.isNotEmpty ? e[0] : '')
-                                .join(),
-                            style: const TextStyle(
-                              color: Colors.white,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 16,
+                            CircleAvatar(
+                              radius: 20,
+                              backgroundColor: const Color(0xFF4A90E2),
+                              child: Text(
+                                widget.child.name
+                                    .split(' ')
+                                    .map((e) => e.isNotEmpty ? e[0] : '')
+                                    .join(),
+                                style: const TextStyle(
+                                  color: Colors.white,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 16,
+                                ),
+                              ),
                             ),
-                          ),
-                        ),
-                        SizedBox(width: 10,),
+                            SizedBox(width: 10),
                             Text(
                               '${widget.child.name}!',
                               style: const TextStyle(
@@ -826,19 +977,19 @@ class _HomeScreenState extends State<HomeScreen> {
                         ),
                       ),
                       const SizedBox(width: 12),
-              
                     ],
                   ),
                 ],
               ),
-             const SizedBox(height: 24),
+              const SizedBox(height: 24),
+
               /// Feature Grid
               GridView.count(
                 shrinkWrap: true,
                 physics: const NeverScrollableScrollPhysics(),
                 crossAxisCount: 4,
                 crossAxisSpacing: 16,
-                mainAxisSpacing:5,
+                mainAxisSpacing: 5,
                 childAspectRatio: 0.85,
                 children: [
                   _buildFeatureItem(
@@ -862,9 +1013,9 @@ class _HomeScreenState extends State<HomeScreen> {
                     () => widget.onFeatureTap('Result'),
                   ),
                   _buildFeatureItem(
-                    'Behavior',
+                    'Detention',
                     Icons.psychology_outlined,
-                    () => widget.onFeatureTap('Behavior'),
+                    () => widget.onFeatureTap('Detention'),
                   ),
                   _buildFeatureItem(
                     'Fees',
@@ -883,9 +1034,8 @@ class _HomeScreenState extends State<HomeScreen> {
                   ),
                 ],
               ),
-              //const SizedBox(height: 24),
 
-              /// Today’s Attendance
+              /// Today's Attendance
               const Text(
                 'Today\'s Attendance',
                 style: TextStyle(
@@ -919,7 +1069,6 @@ class _HomeScreenState extends State<HomeScreen> {
                           style: const TextStyle(
                             fontSize: 14,
                             fontWeight: FontWeight.w500,
-
                             color: Color(0xFF9E9E9E),
                           ),
                         ),
@@ -940,10 +1089,9 @@ class _HomeScreenState extends State<HomeScreen> {
                         vertical: 8,
                       ),
                       decoration: BoxDecoration(
-                        color:
-                            todayAttendance.isHoliday
-                                ? Colors.orange
-                                : todayAttendance.isPresent
+                        color: todayAttendance.isHoliday
+                            ? Colors.orange
+                            : todayAttendance.isPresent
                                 ? Colors.green
                                 : Colors.redAccent,
                         borderRadius: BorderRadius.circular(20),
@@ -952,8 +1100,8 @@ class _HomeScreenState extends State<HomeScreen> {
                         todayAttendance.isHoliday
                             ? 'Holiday'
                             : todayAttendance.isPresent
-                            ? 'Present'
-                            : 'Absent',
+                                ? 'Present'
+                                : 'Absent',
                         style: const TextStyle(
                           color: Colors.white,
                           fontWeight: FontWeight.w600,
@@ -981,17 +1129,21 @@ class _HomeScreenState extends State<HomeScreen> {
                 decoration: BoxDecoration(
                   color: Colors.white,
                   border: Border.all(
-                    color: Colors.white, // or any color you want for the border
+                    color: Colors.white,
                     width: 1.5,
                   ),
                   borderRadius: BorderRadius.circular(16),
                 ),
-                padding: const EdgeInsets.all(
-                  12,
-                ), // some padding inside the container
+                padding: const EdgeInsets.all(12),
                 child: _buildAttendanceCalendar(),
               ),
-              SizedBox(height: 25,)
+              
+              const SizedBox(height: 16),
+              
+              /// Calendar Legend
+              _buildCalendarLegend(),
+              
+              SizedBox(height: 25),
             ],
           ),
         ),
@@ -1028,136 +1180,198 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-Widget _buildAttendanceCalendar() {
-  return TableCalendar(
-    firstDay: DateTime.utc(2022, 1, 1),
-    lastDay: DateTime.utc(2030, 12, 31),
-    focusedDay: _focusedDay,
-    selectedDayPredicate: (day) => isSameDay(_selectedDay, day),
-    calendarFormat: CalendarFormat.month, // Set default to month
-    availableCalendarFormats: const {
-      CalendarFormat.month: 'Month', // Only allow month view
-    },
-    headerStyle: HeaderStyle(
-      formatButtonVisible: false, // ❌ Hide format button (2-week/month toggle)
-      titleCentered: true,        // ✅ Center the month/year title
-      titleTextStyle: const TextStyle(
-        fontSize: 16,
-        fontWeight: FontWeight.bold,
-        color: Color(0xFF2C3E50),
+  Widget _buildAttendanceCalendar() {
+    return TableCalendar(
+      firstDay: DateTime.utc(2022, 1, 1),
+      lastDay: DateTime.utc(2030, 12, 31),
+      focusedDay: _focusedDay,
+      selectedDayPredicate: (day) => isSameDay(_selectedDay, day),
+      calendarFormat: CalendarFormat.month,
+      availableCalendarFormats: const {
+        CalendarFormat.month: 'Month',
+      },
+      headerStyle: HeaderStyle(
+        formatButtonVisible: false,
+        titleCentered: true,
+        titleTextStyle: const TextStyle(
+          fontSize: 16,
+          fontWeight: FontWeight.bold,
+          color: Color(0xFF2C3E50),
+        ),
+        leftChevronIcon: Icon(Icons.chevron_left, color: Color(0xFF4A90E2)),
+        rightChevronIcon: Icon(Icons.chevron_right, color: Color(0xFF4A90E2)),
       ),
-      leftChevronIcon: Icon(Icons.chevron_left, color: Color(0xFF4A90E2)),
-      rightChevronIcon: Icon(Icons.chevron_right, color: Color(0xFF4A90E2)),
-    ),
-    startingDayOfWeek: StartingDayOfWeek.monday,
-    onDaySelected: (selectedDay, focusedDay) {
-      setState(() {
-        _selectedDay = selectedDay;
-        _focusedDay = focusedDay;
-      });
-    },
-    onPageChanged: (focusedDay) {
-      setState(() => _focusedDay = focusedDay);
-    },
-    calendarStyle: CalendarStyle(
-      todayDecoration: BoxDecoration(
-        shape: BoxShape.circle,
-        border: Border.all(color: Colors.blueAccent, width: 2),
+      startingDayOfWeek: StartingDayOfWeek.monday,
+      onDaySelected: (selectedDay, focusedDay) {
+        setState(() {
+          _selectedDay = selectedDay;
+          _focusedDay = focusedDay;
+        });
+      },
+      onPageChanged: (focusedDay) {
+        setState(() => _focusedDay = focusedDay);
+      },
+      calendarStyle: CalendarStyle(
+        todayDecoration: BoxDecoration(
+          shape: BoxShape.circle,
+          border: Border.all(color: Colors.blueAccent, width: 2),
+        ),
+        selectedDecoration: BoxDecoration(
+          color: Colors.green,
+          shape: BoxShape.circle,
+        ),
+        weekendTextStyle: const TextStyle(color: Colors.redAccent),
+        defaultTextStyle: const TextStyle(color: Colors.black),
+        outsideDaysVisible: false,
       ),
-      selectedDecoration: BoxDecoration(
-        color: Colors.green,
-        shape: BoxShape.circle,
+      calendarBuilders: CalendarBuilders(
+        defaultBuilder: (context, day, _) => _buildDayCell(day),
+        todayBuilder: (context, day, _) => _buildDayCell(day, isToday: true),
+        selectedBuilder: (context, day, _) => _buildDayCell(day, isSelected: true),
+        disabledBuilder: (context, day, _) => _buildDayCell(day, isDisabled: true),
       ),
-      weekendTextStyle: const TextStyle(color: Colors.redAccent),
-      defaultTextStyle: const TextStyle(color: Colors.black),
-      outsideDaysVisible: false,
-    ),
-    calendarBuilders: CalendarBuilders(
-      defaultBuilder: (context, day, _) => _buildDayCell(day),
-      todayBuilder: (context, day, _) => _buildDayCell(day, isToday: true),
-      selectedBuilder:
-          (context, day, _) => _buildDayCell(day, isSelected: true),
-      disabledBuilder:
-          (context, day, _) => _buildDayCell(day, isDisabled: true),
-    ),
-  );
-}
-
-Widget _buildDayCell(
-  DateTime day, {
-  bool isToday = false,
-  bool isSelected = false,
-  bool isDisabled = false,
-}) {
-  final record = widget.attendanceRecords.firstWhere(
-    (r) =>
-        r.date.year == day.year &&
-        r.date.month == day.month &&
-        r.date.day == day.day,
-    orElse: () => AttendanceRecord(
-      date: day,
-      isPresent: false,
-      checkInTime: '',
-      checkOutTime: '',
-      isHoliday: false,
-    ),
-  );
-
-  final today = DateTime.now();
-  bool isFuture = day.isAfter(DateTime(today.year, today.month, today.day));
-
-  // Default styles
-  Color textColor = Colors.black87;
-  Color borderColor = Colors.transparent;
-  Color bgColor = Colors.transparent;
-
-  // Light background + border depending on attendance
-  if (isFuture) {
-    // future date = white bg
-    bgColor = Colors.white;
-  } else if (record.isHoliday) {
-    bgColor = const Color.fromARGB(255, 120, 182, 233); // light orange
-    //borderColor = Colors.orange;
-  } else if (record.isPresent) {
-    bgColor = const Color.fromARGB(255, 147, 223, 154); // light green
-    //borderColor = Colors.green;
-  } else if (!record.isPresent && record.checkInTime == '') {
-    bgColor = const Color.fromARGB(255, 195, 140, 149); // light red
-    //borderColor = Colors.redAccent;
-  } else {
-    bgColor = const Color(0xFFE0E0E0); // light gray
-    //borderColor = Colors.grey;
+    );
   }
 
-  if (isSelected) {
-    bgColor = Colors.green;
-    textColor = Colors.white;
-    borderColor = Colors.green;
-  }
-
-  // Today date highlight border
-  if (isToday && !isSelected) {
-    borderColor = Colors.blueAccent;
-  }
-
-  return Container(
-    alignment: Alignment.center,
-    margin: const EdgeInsets.symmetric(horizontal: 9,vertical: 9),
-    padding: const EdgeInsets.all(5),
-    decoration: BoxDecoration(
-      color: bgColor,
-      borderRadius: BorderRadius.circular(6), // <- rectangle with rounded corner
-      border: Border.all(color: borderColor, width: 1.5),
-    ),
-    child: Text(
-      '${day.day}',
-      style: TextStyle(
-        color: textColor,
-        fontWeight: FontWeight.w400,
+  Widget _buildDayCell(
+    DateTime day, {
+    bool isToday = false,
+    bool isSelected = false,
+    bool isDisabled = false,
+  }) {
+    final record = widget.attendanceRecords.firstWhere(
+      (r) =>
+          r.date.year == day.year &&
+          r.date.month == day.month &&
+          r.date.day == day.day,
+      orElse: () => AttendanceRecord(
+        date: day,
+        isPresent: false,
+        checkInTime: '',
+        checkOutTime: '',
+        isHoliday: false,
       ),
-    ),
-  );
-}
+    );
+
+    final today = DateTime.now();
+    bool isFuture = day.isAfter(DateTime(today.year, today.month, today.day));
+    bool isTodayDate = day.year == today.year && day.month == today.month && day.day == today.day;
+
+    Color textColor = Colors.black87;
+    Color borderColor = Colors.transparent;
+    Color bgColor = Colors.transparent;
+
+    if (isFuture) {
+      bgColor = Colors.grey.shade100;
+      textColor = Colors.black;
+    } else if (record.isHoliday) {
+      bgColor = const Color.fromARGB(255, 243, 135, 33); // Blue for holidays
+      textColor = Colors.white;
+    } else if (record.isPresent) {
+      bgColor = const Color(0xFF4CAF50); // Green for present
+      textColor = Colors.white;
+    } else if (!record.isPresent && record.checkInTime == '') {
+      bgColor = const Color(0xFFFF5722); // Red for absent
+      textColor = Colors.white;
+    } else {
+      bgColor = const Color(0xFFE0E0E0);
+    }
+
+    // Today's special styling
+    if (isTodayDate) {
+      if (record.isHoliday) {
+        bgColor =  Colors.orangeAccent;
+        borderColor = Colors.white;
+      } else if (record.isPresent) {
+        bgColor = const Color(0xFF4CAF50);
+        borderColor = Colors.white;
+      } else {
+        bgColor = const Color(0xFFFF5722);
+        borderColor = Colors.white;
+      }
+      // Add a thicker border for today
+      //borderColor = Colors.black;
+    }
+
+    if (isSelected && !isTodayDate) {
+      borderColor = Colors.green;
+    }
+
+    return Container(
+      alignment: Alignment.center,
+      margin: const EdgeInsets.symmetric(horizontal: 9, vertical: 9),
+      padding: const EdgeInsets.all(5),
+      decoration: BoxDecoration(
+        color: bgColor,
+        borderRadius: BorderRadius.circular(6),
+        border: Border.all(color: borderColor, width: isTodayDate ? 2.2 : 1.5),
+      ),
+      child: Text(
+        '${day.day}',
+        style: TextStyle(
+          color: textColor,
+          fontWeight: isTodayDate ? FontWeight.normal : FontWeight.w400,
+        ),
+      ),
+    );
+  }
+
+  Widget _buildCalendarLegend() {
+    return Container(
+      padding: const EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(8),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.05),
+            blurRadius: 10,
+            offset: const Offset(0, 2),
+          ),
+        ],
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          SizedBox(height: 12),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              _buildLegendItem('Present', Color(0xFF4CAF50)),
+              _buildLegendItem('Absent', Color(0xFFFF5722)),
+              _buildLegendItem('Holiday', Colors.orangeAccent),
+              //_buildLegendItem('Future', Colors.grey.shade300),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildLegendItem(String label, Color color) {
+    return Row(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Container(
+          width: 16,
+          height: 16,
+          decoration: BoxDecoration(
+            color: color,
+            borderRadius: BorderRadius.circular(4),
+          ),
+        ),
+        SizedBox(width: 6),
+        Text(
+          label,
+          style: TextStyle(
+            fontSize: 12,
+            color: Color(0xFF666666),
+            fontWeight: FontWeight.w500,
+          ),
+        ),
+      ],
+    );
+  }
 
   String _getGreeting() {
     final hour = DateTime.now().hour;
@@ -1167,7 +1381,703 @@ Widget _buildDayCell(
   }
 }
 
-// Circular Screen
+// Sports Screen
+class SportsScreen extends StatelessWidget {
+  final List<SportsActivity> sportsActivities;
+
+  SportsScreen({required this.sportsActivities});
+
+  @override
+  Widget build(BuildContext context) {
+    final upcomingActivities = sportsActivities
+        .where((activity) => activity.date.isAfter(DateTime.now()))
+        .toList();
+    final pastActivities = sportsActivities
+        .where((activity) => activity.date.isBefore(DateTime.now()))
+        .toList();
+
+    return Scaffold(
+      backgroundColor: Color(0xFFF8F9FA),
+      appBar: AppBar(
+        title: Text('Sports Activities'),
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        
+      ),
+      body: SingleChildScrollView(
+        padding: EdgeInsets.all(20),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            // Sports Leadership Card
+            Container(
+              padding: EdgeInsets.all(20),
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  colors: [Color(0xFF4A90E2), Color(0xFF357ABD)],
+                  begin: Alignment.topLeft,
+                  end: Alignment.bottomRight,
+                ),
+                borderRadius: BorderRadius.circular(16),
+                boxShadow: [
+                  BoxShadow(
+                    color: Color(0xFF4A90E2).withOpacity(0.3),
+                    blurRadius: 15,
+                    offset: Offset(0, 8),
+                  ),
+                ],
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    children: [
+                      Icon(Icons.emoji_events, color: Colors.white, size: 30),
+                      SizedBox(width: 12),
+                      Text(
+                        'Sports Leadership',
+                        style: TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white,
+                        ),
+                      ),
+                    ],
+                  ),
+                  SizedBox(height: 16),
+                  Text(
+                    'Team Captain - Red House',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 16,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                  SizedBox(height: 8),
+                  Text(
+                    'Leading the Red House team in various sports competitions and maintaining team spirit.',
+                    style: TextStyle(
+                      color: Colors.white70,
+                      fontSize: 14,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            SizedBox(height: 24),
+
+            // Upcoming Activities
+            Text(
+              'Upcoming Activities',
+              style: TextStyle(
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+                color: Color(0xFF2C3E50),
+              ),
+            ),
+            SizedBox(height: 16),
+            ...upcomingActivities.map((activity) => _buildActivityCard(activity)),
+            SizedBox(height: 24),
+
+            // Past Activities
+            Text(
+              'Past Activities',
+              style: TextStyle(
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+                color: Color(0xFF2C3E50),
+              ),
+            ),
+            SizedBox(height: 16),
+            ...pastActivities.map((activity) => _buildActivityCard(activity)),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildActivityCard(SportsActivity activity) {
+    final isPast = activity.date.isBefore(DateTime.now());
+    
+    return Container(
+      margin: EdgeInsets.only(bottom: 16),
+      padding: EdgeInsets.all(20),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(16),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.05),
+            blurRadius: 10,
+            offset: Offset(0, 2),
+          ),
+        ],
+        border: Border.all(
+          color: activity.color.withOpacity(0.3),
+          width: 1,
+        ),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              Container(
+                padding: EdgeInsets.all(12),
+                decoration: BoxDecoration(
+                  color: activity.color.withOpacity(0.1),
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                child: Icon(
+                  activity.icon,
+                  color: activity.color,
+                  size: 24,
+                ),
+              ),
+              SizedBox(width: 16),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      activity.name,
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.bold,
+                        color: Color(0xFF2C3E50),
+                      ),
+                    ),
+                    SizedBox(height: 4),
+                    Text(
+                      activity.type,
+                      style: TextStyle(
+                        fontSize: 14,
+                        color: Color(0xFF9E9E9E),
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              Container(
+                padding: EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                decoration: BoxDecoration(
+                  color: activity.isParticipating
+                      ? Color(0xFF4CAF50)
+                      : Color(0xFF9E9E9E),
+                  borderRadius: BorderRadius.circular(16),
+                ),
+                child: Text(
+                  activity.isParticipating ? 'Participating' : 'Not Participating',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 12,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
+            ],
+          ),
+          SizedBox(height: 16),
+          Text(
+            activity.description,
+            style: TextStyle(
+              fontSize: 14,
+              color: Color(0xFF666666),
+              height: 1.5,
+            ),
+          ),
+          SizedBox(height: 12),
+          Row(
+            children: [
+              Icon(Icons.location_on, size: 16, color: Color(0xFF9E9E9E)),
+              SizedBox(width: 4),
+              Text(
+                activity.venue,
+                style: TextStyle(
+                  fontSize: 14,
+                  color: Color(0xFF9E9E9E),
+                ),
+              ),
+              SizedBox(width: 16),
+              Icon(Icons.calendar_today, size: 16, color: Color(0xFF9E9E9E)),
+              SizedBox(width: 4),
+              Text(
+                '${activity.date.day}/${activity.date.month}/${activity.date.year}',
+                style: TextStyle(
+                  fontSize: 14,
+                  color: Color(0xFF9E9E9E),
+                ),
+              ),
+            ],
+          ),
+          if (activity.position != null) ...[
+            SizedBox(height: 12),
+            Container(
+              padding: EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+              decoration: BoxDecoration(
+                color: activity.color.withOpacity(0.1),
+                borderRadius: BorderRadius.circular(8),
+              ),
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Icon(
+                    isPast ? Icons.emoji_events : Icons.star,
+                    size: 16,
+                    color: activity.color,
+                  ),
+                  SizedBox(width: 8),
+                  Text(
+                    activity.position!,
+                    style: TextStyle(
+                      fontSize: 14,
+                      fontWeight: FontWeight.w600,
+                      color: activity.color,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ],
+      ),
+    );
+  }
+}
+
+// Detention Screen (Modified)
+class DetentionScreen extends StatelessWidget {
+  final List<DetentionRecord> DetentionRecords;
+
+  DetentionScreen({required this.DetentionRecords});
+
+  @override
+  Widget build(BuildContext context) {
+    final todayDetention = DetentionRecords.isNotEmpty 
+        ? DetentionRecords.firstWhere(
+            (record) => 
+                record.date.year == DateTime.now().year &&
+                record.date.month == DateTime.now().month &&
+                record.date.day == DateTime.now().day,
+            orElse: () => DetentionRecords.last,
+          )
+        : null;
+
+    return Scaffold(
+      backgroundColor: Color(0xFFF8F9FA),
+      appBar: AppBar(
+        title: Text('Detention'),
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back_ios),
+          onPressed: () => Navigator.pop(context),
+        ),
+      ),
+      body: SingleChildScrollView(
+        padding: EdgeInsets.all(20),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            // Today's Detention
+            Container(
+              padding: EdgeInsets.all(20),
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(16),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black.withOpacity(0.05),
+                    blurRadius: 10,
+                    offset: Offset(0, 2),
+                  ),
+                ],
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            'Today\'s Detention & Behavior',
+                            style: TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.w600,
+                              color: Color(0xFF2C3E50),
+                            ),
+                          ),
+                          SizedBox(height: 4),
+                          if (todayDetention?.detentionReason != null)
+                            Text(
+                              'Detention: ${todayDetention!.detentionReason}',
+                              style: TextStyle(
+                                fontSize: 14,
+                                color: Color(0xFFFF5722),
+                                fontWeight: FontWeight.w500,
+                              ),
+                            )
+                          else
+                            Row(
+                              children: [
+                                Icon(
+                                  Icons.check_circle,
+                                  size: 14,
+                                  color: Color(0xFF4CAF50),
+                                ),
+                                SizedBox(width: 4),
+                                Text(
+                                  'Good Student',
+                                  style: TextStyle(
+                                    fontSize: 14,
+                                    color: Color(0xFF4CAF50),
+                                  ),
+                                ),
+                              ],
+                            ),
+                        ],
+                      ),
+                      Container(
+                        padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                        decoration: BoxDecoration(
+                          color: todayDetention?.color ?? Color(0xFF4CAF50),
+                          borderRadius: BorderRadius.circular(20),
+                        ),
+                        child: Text(
+                          todayDetention?.status ?? 'Good',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.w600,
+                            fontSize: 14,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+            SizedBox(height: 24),
+
+            // Calendar
+            _buildDetentionCalendar(),
+            SizedBox(height: 16),
+            
+            // Detention Calendar Legend
+            _buildDetentionLegend(),
+            SizedBox(height: 24),
+
+            // Detention History
+            Text(
+              'Recent Detention & Behavior Records',
+              style: TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+                color: Color(0xFF2C3E50),
+              ),
+            ),
+            SizedBox(height: 16),
+            ...DetentionRecords.take(10).map(
+              (record) => Container(
+                margin: EdgeInsets.only(bottom: 12),
+                padding: EdgeInsets.all(16),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(12),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black.withOpacity(0.05),
+                      blurRadius: 10,
+                      offset: Offset(0, 2),
+                    ),
+                  ],
+                ),
+                child: Row(
+                  children: [
+                    Container(
+                      width: 12,
+                      height: 12,
+                      decoration: BoxDecoration(
+                        color: record.color,
+                        shape: BoxShape.circle,
+                      ),
+                    ),
+                    SizedBox(width: 16),
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            '${record.date.day}/${record.date.month}/${record.date.year}',
+                            style: TextStyle(
+                              fontWeight: FontWeight.w600,
+                              color: Color(0xFF2C3E50),
+                            ),
+                          ),
+                          Text(
+                            record.description,
+                            style: TextStyle(
+                              fontSize: 12,
+                              color: Color(0xFF9E9E9E),
+                            ),
+                          ),
+                          if (record.detentionReason != null)
+                            Text(
+                              'Reason: ${record.detentionReason}',
+                              style: TextStyle(
+                                fontSize: 12,
+                                color: Color(0xFFFF5722),
+                                fontWeight: FontWeight.w500,
+                              ),
+                            ),
+                        ],
+                      ),
+                    ),
+                    Container(
+                      padding: EdgeInsets.symmetric(
+                        horizontal: 12,
+                        vertical: 6,
+                      ),
+                      decoration: BoxDecoration(
+                        color: record.color.withOpacity(0.1),
+                        borderRadius: BorderRadius.circular(16),
+                      ),
+                      child: Text(
+                        record.status,
+                        style: TextStyle(
+                          fontSize: 12,
+                          fontWeight: FontWeight.w600,
+                          color: record.color,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildDetentionCalendar() {
+    final now = DateTime.now();
+    final currentMonth = now.month;
+    final currentYear = now.year;
+    final daysInMonth = DateTime(currentYear, currentMonth + 1, 0).day;
+    final firstDayOfMonth = DateTime(currentYear, currentMonth, 1);
+    final startingWeekday = firstDayOfMonth.weekday % 7;
+
+    return Container(
+      padding: EdgeInsets.all(20),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(16),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.05),
+            blurRadius: 10,
+            offset: Offset(0, 2),
+          ),
+        ],
+      ),
+      child: Column(
+        children: [
+          Text(
+            'Detention Calendar - ${_getMonthName(currentMonth)} $currentYear',
+            style: TextStyle(
+              fontSize: 18,
+              fontWeight: FontWeight.bold,
+              color: Color(0xFF2C3E50),
+            ),
+          ),
+          SizedBox(height: 20),
+          // Weekday headers
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: ['M', 'T', 'W', 'T', 'F', 'S', 'S']
+                .map(
+                  (day) => Container(
+                    width: 32,
+                    height: 32,
+                    alignment: Alignment.center,
+                    child: Text(
+                      day,
+                      style: TextStyle(
+                        fontWeight: FontWeight.w600,
+                        fontSize: 14,
+                        color: Color(0xFF9E9E9E),
+                      ),
+                    ),
+                  ),
+                )
+                .toList(),
+          ),
+          SizedBox(height: 8),
+          // Calendar grid
+          ...List.generate((daysInMonth + startingWeekday + 6) ~/ 7, (weekIndex) {
+            return Padding(
+              padding: EdgeInsets.symmetric(vertical: 4),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: List.generate(7, (dayIndex) {
+                  final dayNumber = weekIndex * 7 + dayIndex - startingWeekday + 1;
+                  if (dayNumber < 1 || dayNumber > daysInMonth) {
+                    return Container(width: 32, height: 32);
+                  }
+                  final date = DateTime(currentYear, currentMonth, dayNumber);
+                  final DetentionRecord = DetentionRecords
+                      .where(
+                        (record) =>
+                            record.date.year == date.year &&
+                            record.date.month == date.month &&
+                            record.date.day == date.day,
+                      )
+                      .firstOrNull;
+
+                  Color backgroundColor = Colors.transparent;
+                  Color textColor = Color(0xFF2C3E50);
+                  
+                  if (DetentionRecord != null) {
+                    backgroundColor = DetentionRecord.color.withOpacity(0.2);
+                    textColor = DetentionRecord.color;
+                  }
+
+                  // Weekend styling
+                  if (date.weekday == DateTime.saturday ||
+                      date.weekday == DateTime.sunday) {
+                    textColor = Color(0xFFCCCCCC);
+                  }
+
+                  // Today styling
+                  if (dayNumber == now.day &&
+                      currentMonth == now.month &&
+                      currentYear == now.year) {
+                    if (backgroundColor == Colors.transparent) {
+                      backgroundColor = Color(0xFF4A90E2);
+                      textColor = Colors.white;
+                    }
+                  }
+
+                  return Container(
+                    width: 32,
+                    height: 32,
+                    alignment: Alignment.center,
+                    decoration: BoxDecoration(
+                      color: backgroundColor,
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                    child: Text(
+                      dayNumber.toString(),
+                      style: TextStyle(
+                        fontSize: 14,
+                        fontWeight: FontWeight.w600,
+                        color: textColor,
+                      ),
+                    ),
+                  );
+                }),
+              ),
+            );
+          }),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildDetentionLegend() {
+    return Container(
+      padding: const EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(12),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.05),
+            blurRadius: 10,
+            offset: const Offset(0, 2),
+          ),
+        ],
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            'Detention Legend',
+            style: TextStyle(
+              fontSize: 16,
+              fontWeight: FontWeight.bold,
+              color: Color(0xFF2C3E50),
+            ),
+          ),
+          SizedBox(height: 12),
+          Wrap(
+            spacing: 16,
+            runSpacing: 8,
+            children: [
+              _buildDetentionLegendItem('Excellent', Color(0xFF4CAF50)),
+              _buildDetentionLegendItem('Good', Color(0xFF2196F3)),
+              _buildDetentionLegendItem('Average', Color(0xFFFF9800)),
+              _buildDetentionLegendItem('Detention', Color(0xFFFF5722)),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildDetentionLegendItem(String label, Color color) {
+    return Row(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Container(
+          width: 16,
+          height: 16,
+          decoration: BoxDecoration(
+            color: color.withOpacity(0.2),
+            borderRadius: BorderRadius.circular(4),
+            border: Border.all(color: color, width: 2),
+          ),
+        ),
+        SizedBox(width: 6),
+        Text(
+          label,
+          style: TextStyle(
+            fontSize: 12,
+            color: Color(0xFF666666),
+            fontWeight: FontWeight.w500,
+          ),
+        ),
+      ],
+    );
+  }
+
+  String _getMonthName(int month) {
+    const months = [
+      '',
+      'January',
+      'February',
+      'March',
+      'April',
+      'May',
+      'June',
+      'July',
+      'August',
+      'September',
+      'October',
+      'November',
+      'December',
+    ];
+    return months[month];
+  }
+}
+
+// Notice Screen
 class NoticeScreen extends StatelessWidget {
   final List<Notice> notices;
 
@@ -1190,105 +2100,104 @@ class NoticeScreen extends StatelessWidget {
         padding: EdgeInsets.all(20),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
-          children:
-              notices
-                  .map(
-                    (notice) => Container(
-                      margin: EdgeInsets.only(bottom: 16),
-                      padding: EdgeInsets.all(20),
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(16),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.black.withOpacity(0.05),
-                            blurRadius: 10,
-                            offset: Offset(0, 2),
-                          ),
-                        ],
+          children: notices
+              .map(
+                (notice) => Container(
+                  margin: EdgeInsets.only(bottom: 16),
+                  padding: EdgeInsets.all(20),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(16),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black.withOpacity(0.05),
+                        blurRadius: 10,
+                        offset: Offset(0, 2),
                       ),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
+                    ],
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
                         children: [
-                          Row(
-                            children: [
-                              if (notice.isUrgent)
-                                Container(
-                                  padding: EdgeInsets.symmetric(
-                                    horizontal: 8,
-                                    vertical: 4,
-                                  ),
-                                  decoration: BoxDecoration(
-                                    color: Color(0xFFFF5722),
-                                    borderRadius: BorderRadius.circular(8),
-                                  ),
-                                  child: Text(
-                                    'URGENT',
-                                    style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 10,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
-                                ),
-                              if (notice.isUrgent) SizedBox(width: 8),
-                              Expanded(
-                                child: Text(
-                                  notice.title,
-                                  style: TextStyle(
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.bold,
-                                    color: Color(0xFF2C3E50),
-                                  ),
-                                ),
+                          if (notice.isUrgent)
+                            Container(
+                              padding: EdgeInsets.symmetric(
+                                horizontal: 8,
+                                vertical: 4,
                               ),
-                            ],
-                          ),
-                          SizedBox(height: 8),
-                          Text(
-                            '${notice.date.day}th ${_getMonthName(notice.date.month)} ${notice.date.year}',
-                            style: TextStyle(
-                              fontSize: 12,
-                              color: Color(0xFF9E9E9E),
-                            ),
-                          ),
-                          SizedBox(height: 12),
-                          Text(
-                            notice.content,
-                            style: TextStyle(
-                              fontSize: 14,
-                              color: Color(0xFF666666),
-                              height: 1.5,
-                            ),
-                          ),
-                          if (notice.actionText != null) ...[
-                            SizedBox(height: 16),
-                            SizedBox(
-                              width: double.infinity,
-                              child: ElevatedButton(
-                                onPressed: () {},
-                                style: ElevatedButton.styleFrom(
-                                  backgroundColor: Color(0xFF4A90E2),
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(12),
-                                  ),
-                                  padding: EdgeInsets.symmetric(vertical: 12),
-                                ),
-                                child: Text(
-                                  notice.actionText!,
-                                  style: TextStyle(
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.w600,
-                                  ),
+                              decoration: BoxDecoration(
+                                color: Color(0xFFFF5722),
+                                borderRadius: BorderRadius.circular(8),
+                              ),
+                              child: Text(
+                                'URGENT',
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 10,
+                                  fontWeight: FontWeight.bold,
                                 ),
                               ),
                             ),
-                          ],
+                          if (notice.isUrgent) SizedBox(width: 8),
+                          Expanded(
+                            child: Text(
+                              notice.title,
+                              style: TextStyle(
+                                fontSize: 18,
+                                fontWeight: FontWeight.bold,
+                                color: Color(0xFF2C3E50),
+                              ),
+                            ),
+                          ),
                         ],
                       ),
-                    ),
-                  )
-                  .toList(),
+                      SizedBox(height: 8),
+                      Text(
+                        '${notice.date.day}th ${_getMonthName(notice.date.month)} ${notice.date.year}',
+                        style: TextStyle(
+                          fontSize: 12,
+                          color: Color(0xFF9E9E9E),
+                        ),
+                      ),
+                      SizedBox(height: 12),
+                      Text(
+                        notice.content,
+                        style: TextStyle(
+                          fontSize: 14,
+                          color: Color(0xFF666666),
+                          height: 1.5,
+                        ),
+                      ),
+                      if (notice.actionText != null) ...[
+                        SizedBox(height: 16),
+                        SizedBox(
+                          width: double.infinity,
+                          child: ElevatedButton(
+                            onPressed: () {},
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: Color(0xFF4A90E2),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(12),
+                              ),
+                              padding: EdgeInsets.symmetric(vertical: 12),
+                            ),
+                            child: Text(
+                              notice.actionText!,
+                              style: TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ],
+                  ),
+                ),
+              )
+              .toList(),
         ),
       ),
     );
@@ -1391,7 +2300,6 @@ class _ResultScreenState extends State<ResultScreen>
             ),
           ),
           SizedBox(height: 20),
-
           // Results List
           Expanded(
             child: SingleChildScrollView(
@@ -1442,27 +2350,26 @@ class _ResultScreenState extends State<ResultScreen>
                                     ),
                                   ),
                                   SizedBox(height: 4),
-                                 Row(
-  children: [
-    Text(
-      'Grade: ${_getGradeLetter(result.percentage)}',
-      style: TextStyle(
-        fontSize: 18,
-        fontWeight: FontWeight.w600,
-        color: Color(0xFF4A90E2),
-      ),
-    ),
-    SizedBox(width: 10),
-    Text(
-      _getGradeDescription(result.percentage),
-      style: TextStyle(
-        fontSize: 12,
-        color: Color(0xFF9E9E9E),
-      ),
-    ),
-  ],
-),
-
+                                  Row(
+                                    children: [
+                                      Text(
+                                        'Grade: ${_getGradeLetter(result.percentage)}',
+                                        style: TextStyle(
+                                          fontSize: 18,
+                                          fontWeight: FontWeight.w600,
+                                          color: Color(0xFF4A90E2),
+                                        ),
+                                      ),
+                                      SizedBox(width: 10),
+                                      Text(
+                                        _getGradeDescription(result.percentage),
+                                        style: TextStyle(
+                                          fontSize: 12,
+                                          color: Color(0xFF9E9E9E),
+                                        ),
+                                      ),
+                                    ],
+                                  ),
                                 ],
                               ),
                             ),
@@ -1477,8 +2384,7 @@ class _ResultScreenState extends State<ResultScreen>
                                     child: CircularProgressIndicator(
                                       value: result.percentage / 100,
                                       strokeWidth: 4,
-                                      backgroundColor:
-                                          result.color.withOpacity(0.1),
+                                      backgroundColor: result.color.withOpacity(0.1),
                                       valueColor: AlwaysStoppedAnimation<Color>(
                                         result.color,
                                       ),
@@ -1554,14 +2460,22 @@ class ClassesScreen extends StatelessWidget {
   int getTodayTabIndex() {
     final today = DateTime.now().weekday;
     switch (today) {
-      case DateTime.saturday: return 0;
-      case DateTime.sunday: return 1;
-      case DateTime.monday: return 2;
-      case DateTime.tuesday: return 3;
-      case DateTime.wednesday: return 4;
-      case DateTime.thursday: return 5;
-      case DateTime.friday: return 6;
-      default: return 0;
+      case DateTime.saturday:
+        return 0;
+      case DateTime.sunday:
+        return 1;
+      case DateTime.monday:
+        return 2;
+      case DateTime.tuesday:
+        return 3;
+      case DateTime.wednesday:
+        return 4;
+      case DateTime.thursday:
+        return 5;
+      case DateTime.friday:
+        return 6;
+      default:
+        return 0;
     }
   }
 
@@ -1610,7 +2524,7 @@ class ClassesScreen extends StatelessWidget {
           child: Center(
             child: Column(
               children: [
-                SizedBox(height: 200,),
+                SizedBox(height: 200),
                 Center(
                   child: Text(
                     'No classes today!',
@@ -1619,14 +2533,13 @@ class ClassesScreen extends StatelessWidget {
                       fontWeight: FontWeight.w600,
                       color: const Color.fromARGB(255, 42, 41, 41),
                     ),
-                    
                   ),
                 ),
-                Image.network("https://cdn-icons-png.flaticon.com/128/11887/11887123.png")
+                Image.network(
+                    "https://cdn-icons-png.flaticon.com/128/11887/11887123.png")
               ],
             ),
           ),
-          
         ),
       );
     }
@@ -1707,349 +2620,6 @@ class ClassesScreen extends StatelessWidget {
         }).toList(),
       ),
     );
-  }
-}
-
-// Behavior Screen
-class BehaviorScreen extends StatelessWidget {
-  final List<BehaviorRecord> behaviorRecords;
-
-  BehaviorScreen({required this.behaviorRecords});
-
-  @override
-  Widget build(BuildContext context) {
-    final todayBehavior =
-        behaviorRecords.isNotEmpty ? behaviorRecords.last : null;
-
-    return Scaffold(
-      backgroundColor: Color(0xFFF8F9FA),
-      appBar: AppBar(
-        title: Text('Behavior'),
-        backgroundColor: Colors.transparent,
-        elevation: 0,
-        leading: IconButton(
-          icon: Icon(Icons.arrow_back_ios),
-          onPressed: () => Navigator.pop(context),
-        ),
- 
-      ),
-      body: SingleChildScrollView(
-        padding: EdgeInsets.all(20),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            // Today's Behavior
-            Container(
-              padding: EdgeInsets.all(20),
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(16),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.black.withOpacity(0.05),
-                    blurRadius: 10,
-                    offset: Offset(0, 2),
-                  ),
-                ],
-              ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        'Today Behaviour',
-                        style: TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.w600,
-                          color: Color(0xFF2C3E50),
-                        ),
-                      ),
-                      SizedBox(height: 4),
-                      Row(
-                        children: [
-                          Icon(
-                            Icons.access_time,
-                            size: 14,
-                            color: Color(0xFF9E9E9E),
-                          ),
-                          SizedBox(width: 4),
-                          Text(
-                            'Active Student',
-                            style: TextStyle(
-                              fontSize: 14,
-                              color: Color(0xFF9E9E9E),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                  Container(
-                    padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                    decoration: BoxDecoration(
-                      color: Color(0xFF4CAF50),
-                      borderRadius: BorderRadius.circular(20),
-                    ),
-                    child: Text(
-                      todayBehavior?.status ?? 'Active',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.w600,
-                        fontSize: 14,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            SizedBox(height: 24),
-
-            // Calendar
-            _buildBehaviorCalendar(),
-            SizedBox(height: 24),
-
-            // Behavior History
-            Text(
-              'Recent Behavior Records',
-              style: TextStyle(
-                fontSize: 18,
-                fontWeight: FontWeight.bold,
-                color: Color(0xFF2C3E50),
-              ),
-            ),
-            SizedBox(height: 16),
-
-            ...behaviorRecords
-                .take(10)
-                .map(
-                  (record) => Container(
-                    margin: EdgeInsets.only(bottom: 12),
-                    padding: EdgeInsets.all(16),
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(12),
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.black.withOpacity(0.05),
-                          blurRadius: 10,
-                          offset: Offset(0, 2),
-                        ),
-                      ],
-                    ),
-                    child: Row(
-                      children: [
-                        Container(
-                          width: 12,
-                          height: 12,
-                          decoration: BoxDecoration(
-                            color: record.color,
-                            shape: BoxShape.circle,
-                          ),
-                        ),
-                        SizedBox(width: 16),
-                        Expanded(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                '${record.date.day}/${record.date.month}/${record.date.year}',
-                                style: TextStyle(
-                                  fontWeight: FontWeight.w600,
-                                  color: Color(0xFF2C3E50),
-                                ),
-                              ),
-                              Text(
-                                record.description,
-                                style: TextStyle(
-                                  fontSize: 12,
-                                  color: Color(0xFF9E9E9E),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                        Container(
-                          padding: EdgeInsets.symmetric(
-                            horizontal: 12,
-                            vertical: 6,
-                          ),
-                          decoration: BoxDecoration(
-                            color: record.color.withOpacity(0.1),
-                            borderRadius: BorderRadius.circular(16),
-                          ),
-                          child: Text(
-                            record.status,
-                            style: TextStyle(
-                              fontSize: 12,
-                              fontWeight: FontWeight.w600,
-                              color: record.color,
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                )
-                .toList(),
-          ],
-        ),
-      ),
-    );
-  }
-
-  Widget _buildBehaviorCalendar() {
-    final now = DateTime.now();
-    final currentMonth = now.month;
-    final currentYear = now.year;
-    final daysInMonth = DateTime(currentYear, currentMonth + 1, 0).day;
-    final firstDayOfMonth = DateTime(currentYear, currentMonth, 1);
-    final startingWeekday = firstDayOfMonth.weekday % 7;
-
-    return Container(
-      padding: EdgeInsets.all(20),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(16),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(0.05),
-            blurRadius: 10,
-            offset: Offset(0, 2),
-          ),
-        ],
-      ),
-      child: Column(
-        children: [
-          Text(
-            '${_getMonthName(currentMonth)} $currentYear',
-            style: TextStyle(
-              fontSize: 18,
-              fontWeight: FontWeight.bold,
-              color: Color(0xFF2C3E50),
-            ),
-          ),
-          SizedBox(height: 20),
-
-          // Weekday headers
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children:
-                ['M', 'T', 'W', 'T', 'F', 'S', 'S']
-                    .map(
-                      (day) => Container(
-                        width: 32,
-                        height: 32,
-                        alignment: Alignment.center,
-                        child: Text(
-                          day,
-                          style: TextStyle(
-                            fontWeight: FontWeight.w600,
-                            fontSize: 14,
-                            color: Color(0xFF9E9E9E),
-                          ),
-                        ),
-                      ),
-                    )
-                    .toList(),
-          ),
-          SizedBox(height: 8),
-
-          // Calendar grid
-          ...List.generate((daysInMonth + startingWeekday + 6) ~/ 7, (
-            weekIndex,
-          ) {
-            return Padding(
-              padding: EdgeInsets.symmetric(vertical: 4),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: List.generate(7, (dayIndex) {
-                  final dayNumber =
-                      weekIndex * 7 + dayIndex - startingWeekday + 1;
-
-                  if (dayNumber < 1 || dayNumber > daysInMonth) {
-                    return Container(width: 32, height: 32);
-                  }
-
-                  final date = DateTime(currentYear, currentMonth, dayNumber);
-                  final behaviorRecord =
-                      behaviorRecords
-                          .where(
-                            (record) =>
-                                record.date.year == date.year &&
-                                record.date.month == date.month &&
-                                record.date.day == date.day,
-                          )
-                          .firstOrNull;
-
-                  Color backgroundColor = Colors.transparent;
-                  Color textColor = Color(0xFF2C3E50);
-
-                  if (behaviorRecord != null) {
-                    backgroundColor = behaviorRecord.color.withOpacity(0.2);
-                    textColor = behaviorRecord.color;
-                  }
-
-                  // Weekend styling
-                  if (date.weekday == DateTime.saturday ||
-                      date.weekday == DateTime.sunday) {
-                    textColor = Color(0xFFCCCCCC);
-                  }
-
-                  // Today styling
-                  if (dayNumber == now.day &&
-                      currentMonth == now.month &&
-                      currentYear == now.year) {
-                    if (backgroundColor == Colors.transparent) {
-                      backgroundColor = Color(0xFF4A90E2);
-                      textColor = Colors.white;
-                    }
-                  }
-
-                  return Container(
-                    width: 32,
-                    height: 32,
-                    alignment: Alignment.center,
-                    decoration: BoxDecoration(
-                      color: backgroundColor,
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                    child: Text(
-                      dayNumber.toString(),
-                      style: TextStyle(
-                        fontSize: 14,
-                        fontWeight: FontWeight.w600,
-                        color: textColor,
-                      ),
-                    ),
-                  );
-                }),
-              ),
-            );
-          }),
-        ],
-      ),
-    );
-  }
-
-  String _getMonthName(int month) {
-    const months = [
-      '',
-      'January',
-      'February',
-      'March',
-      'April',
-      'May',
-      'June',
-      'July',
-      'August',
-      'September',
-      'October',
-      'November',
-      'December',
-    ];
-    return months[month];
   }
 }
 
@@ -2192,7 +2762,6 @@ class FeesScreen extends StatelessWidget {
               ),
             ),
             SizedBox(height: 16),
-
             ...feeRecords
                 .map(
                   (fee) => Container(
@@ -2209,10 +2778,9 @@ class FeesScreen extends StatelessWidget {
                         ),
                       ],
                       border: Border.all(
-                        color:
-                            fee.isPaid
-                                ? Color(0xFF4CAF50).withOpacity(0.3)
-                                : Color(0xFFFF5722).withOpacity(0.3),
+                        color: fee.isPaid
+                            ? Color(0xFF4CAF50).withOpacity(0.3)
+                            : Color(0xFFFF5722).withOpacity(0.3),
                         width: 1,
                       ),
                     ),
@@ -2224,18 +2792,16 @@ class FeesScreen extends StatelessWidget {
                             Container(
                               padding: EdgeInsets.all(8),
                               decoration: BoxDecoration(
-                                color:
-                                    fee.isPaid
-                                        ? Color(0xFF4CAF50).withOpacity(0.1)
-                                        : Color(0xFFFF5722).withOpacity(0.1),
+                                color: fee.isPaid
+                                    ? Color(0xFF4CAF50).withOpacity(0.1)
+                                    : Color(0xFFFF5722).withOpacity(0.1),
                                 borderRadius: BorderRadius.circular(8),
                               ),
                               child: Icon(
                                 fee.isPaid ? Icons.check_circle : Icons.payment,
-                                color:
-                                    fee.isPaid
-                                        ? Color(0xFF4CAF50)
-                                        : Color(0xFFFF5722),
+                                color: fee.isPaid
+                                    ? Color(0xFF4CAF50)
+                                    : Color(0xFFFF5722),
                                 size: 20,
                               ),
                             ),
@@ -2256,10 +2822,9 @@ class FeesScreen extends StatelessWidget {
                                 vertical: 6,
                               ),
                               decoration: BoxDecoration(
-                                color:
-                                    fee.isPaid
-                                        ? Color(0xFF4CAF50)
-                                        : Color(0xFFFF5722),
+                                color: fee.isPaid
+                                    ? Color(0xFF4CAF50)
+                                    : Color(0xFFFF5722),
                                 borderRadius: BorderRadius.circular(16),
                               ),
                               child: Text(
@@ -2339,44 +2904,43 @@ class FeesScreen extends StatelessWidget {
   void _showPaymentDialog(BuildContext context, Fee fee) {
     showDialog(
       context: context,
-      builder:
-          (context) => AlertDialog(
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(16),
+      builder: (context) => AlertDialog(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(16),
+        ),
+        title: Text('Payment Options'),
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Text('Pay ৳${fee.amount.toStringAsFixed(0)} for ${fee.month}'),
+            SizedBox(height: 16),
+            _buildPaymentOption(
+              context,
+              'bKash',
+              Color(0xFFE2136E),
+              Icons.phone_android,
             ),
-            title: Text('Payment Options'),
-            content: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Text('Pay ৳${fee.amount.toStringAsFixed(0)} for ${fee.month}'),
-                SizedBox(height: 16),
-                _buildPaymentOption(
-                  context,
-                  'bKash',
-                  Color(0xFFE2136E),
-                  Icons.phone_android,
-                ),
-                _buildPaymentOption(
-                  context,
-                  'Nagad',
-                  Color(0xFFFF6600),
-                  Icons.phone_android,
-                ),
-                _buildPaymentOption(
-                  context,
-                  'Credit/Debit Card',
-                  Color(0xFF4A90E2),
-                  Icons.credit_card,
-                ),
-                _buildPaymentOption(
-                  context,
-                  'Bank Transfer',
-                  Color(0xFF4CAF50),
-                  Icons.account_balance,
-                ),
-              ],
+            _buildPaymentOption(
+              context,
+              'Nagad',
+              Color(0xFFFF6600),
+              Icons.phone_android,
             ),
-          ),
+            _buildPaymentOption(
+              context,
+              'Credit/Debit Card',
+              Color(0xFF4A90E2),
+              Icons.credit_card,
+            ),
+            _buildPaymentOption(
+              context,
+              'Bank Transfer',
+              Color(0xFF4CAF50),
+              Icons.account_balance,
+            ),
+          ],
+        ),
+      ),
     );
   }
 
@@ -2406,20 +2970,19 @@ class FeesScreen extends StatelessWidget {
     showDialog(
       context: context,
       barrierDismissible: false,
-      builder:
-          (context) => AlertDialog(
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(16),
-            ),
-            content: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                CircularProgressIndicator(color: Color(0xFF4A90E2)),
-                SizedBox(height: 16),
-                Text('Processing payment via $method...'),
-              ],
-            ),
-          ),
+      builder: (context) => AlertDialog(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(16),
+        ),
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            CircularProgressIndicator(color: Color(0xFF4A90E2)),
+            SizedBox(height: 16),
+            Text('Processing payment via $method...'),
+          ],
+        ),
+      ),
     );
 
     Timer(Duration(seconds: 3), () {
@@ -2443,7 +3006,6 @@ class FeesScreen extends StatelessWidget {
 }
 
 // Library Screen
-
 class Book {
   final String title;
   final String author;
@@ -2518,14 +3080,13 @@ class BookListScreen extends StatelessWidget {
                                 ),
                               ),
                               SizedBox(height: 4),
-                           Text(
-  'Author name:  ${book.author}',
-  style: TextStyle(
-    fontSize: 14,
-    color: Color(0xFF9E9E9E),
-  ),
-),
-
+                              Text(
+                                'Author name:  ${book.author}',
+                                style: TextStyle(
+                                  fontSize: 14,
+                                  color: Color(0xFF9E9E9E),
+                                ),
+                              ),
                             ],
                           ),
                         ),
@@ -2595,10 +3156,9 @@ class AttendanceDetailScreen extends StatelessWidget {
         attendanceRecords.where((r) => !r.isPresent && !r.isHoliday).length;
     final holidays = attendanceRecords.where((r) => r.isHoliday).length;
     final totalDays = attendanceRecords.length;
-    final attendancePercentage =
-        totalDays > holidays
-            ? ((presentDays / (totalDays - holidays)) * 100).round()
-            : 0;
+    final attendancePercentage = totalDays > holidays
+        ? ((presentDays / (totalDays - holidays)) * 100).round()
+        : 0;
 
     return Scaffold(
       backgroundColor: Color(0xFFF8F9FA),
@@ -2650,10 +3210,9 @@ class AttendanceDetailScreen extends StatelessWidget {
                           vertical: 6,
                         ),
                         decoration: BoxDecoration(
-                          color:
-                              attendancePercentage >= 90
-                                  ? Color(0xFF4CAF50)
-                                  : attendancePercentage >= 75
+                          color: attendancePercentage >= 90
+                              ? Color(0xFF4CAF50)
+                              : attendancePercentage >= 75
                                   ? Color(0xFFFF9800)
                                   : Color(0xFFFF5722),
                           borderRadius: BorderRadius.circular(10),
@@ -2686,12 +3245,12 @@ class AttendanceDetailScreen extends StatelessWidget {
                       _buildStatItem(
                         'Holiday',
                         holidays.toString(),
-                        Color(0xFF2196F3),
+                        Colors.orangeAccent,
                       ),
                       _buildStatItem(
                         'Total',
                         totalDays.toString(),
-                        Color(0xFF9E9E9E),
+                        Colors.black.withOpacity(0.7),
                       ),
                     ],
                   ),
@@ -2710,7 +3269,6 @@ class AttendanceDetailScreen extends StatelessWidget {
               ),
             ),
             SizedBox(height: 16),
-
             ...attendanceRecords
                 .take(15)
                 .map(
@@ -2734,10 +3292,9 @@ class AttendanceDetailScreen extends StatelessWidget {
                           width: 12,
                           height: 12,
                           decoration: BoxDecoration(
-                            color:
-                                record.isHoliday
-                                    ? Color(0xFF2196F3)
-                                    : record.isPresent
+                            color: record.isHoliday
+                                ? Colors.orangeAccent
+                                : record.isPresent
                                     ? Color(0xFF4CAF50)
                                     : Color(0xFFFF5722),
                             shape: BoxShape.circle,
@@ -2780,10 +3337,9 @@ class AttendanceDetailScreen extends StatelessWidget {
                             vertical: 6,
                           ),
                           decoration: BoxDecoration(
-                            color:
-                                record.isHoliday
-                                    ? Color(0xFF2196F3).withOpacity(0.1)
-                                    : record.isPresent
+                            color: record.isHoliday
+                                ? Colors.orangeAccent
+                                : record.isPresent
                                     ? Color(0xFF4CAF50).withOpacity(0.1)
                                     : Color(0xFFFF5722).withOpacity(0.1),
                             borderRadius: BorderRadius.circular(16),
@@ -2792,15 +3348,14 @@ class AttendanceDetailScreen extends StatelessWidget {
                             record.isHoliday
                                 ? 'Holiday'
                                 : record.isPresent
-                                ? 'Present'
-                                : 'Absent',
+                                    ? 'Present'
+                                    : 'Absent',
                             style: TextStyle(
                               fontSize: 12,
                               fontWeight: FontWeight.w600,
-                              color:
-                                  record.isHoliday
-                                      ? Color(0xFF2196F3)
-                                      : record.isPresent
+                              color: record.isHoliday
+                                  ? Colors.white
+                                  : record.isPresent
                                       ? Color(0xFF4CAF50)
                                       : Color(0xFFFF5722),
                             ),
@@ -2871,43 +3426,6 @@ class MessagesScreen extends StatelessWidget {
   }
 }
 
-// Location Screen
-class LocationScreen extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Color(0xFFF8F9FA),
-      appBar: AppBar(
-        title: Text('School Location'),
-        backgroundColor: Colors.transparent,
-        elevation: 0,
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Icon(Icons.location_on, size: 80, color: Color(0xFF4A90E2)),
-            SizedBox(height: 16),
-            Text(
-              'School Location',
-              style: TextStyle(
-                fontSize: 24,
-                fontWeight: FontWeight.bold,
-                color: Color(0xFF2C3E50),
-              ),
-            ),
-            SizedBox(height: 8),
-            Text(
-              'Map integration coming soon',
-              style: TextStyle(color: Color(0xFF9E9E9E), fontSize: 16),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
 // Profile Screen
 class ProfileScreen extends StatelessWidget {
   final Child child;
@@ -2924,15 +3442,15 @@ class ProfileScreen extends StatelessWidget {
         elevation: 0,
       ),
       body: SingleChildScrollView(
-        padding: EdgeInsets.all(20),
+        padding: EdgeInsets.all(12),
         child: Column(
           children: [
             // Profile Header
             Container(
-              padding: EdgeInsets.all(24),
+              padding: EdgeInsets.symmetric(horizontal: 130, vertical: 20),
               decoration: BoxDecoration(
                 color: Colors.white,
-                borderRadius: BorderRadius.circular(16),
+                borderRadius: BorderRadius.circular(12),
                 boxShadow: [
                   BoxShadow(
                     color: Colors.black.withOpacity(0.05),
